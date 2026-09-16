@@ -1,0 +1,443 @@
+# ============================================================
+# SWAY CONFIG
+# Based on the official sway(5), sway-input(5), sway-output(5)
+# ============================================================
+
+# ------------------------------------------------------------
+# SESSION / ENVIRONMENT
+# ------------------------------------------------------------
+
+xwayland enable
+primary_selection enabled
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
+
+# ------------------------------------------------------------
+# VARIABLES
+# ------------------------------------------------------------
+
+set $mod Mod4
+
+set $left  h
+set $down  j
+set $up    k
+set $right l
+
+set $term      kitty
+set $menu      wofi --show drun
+set $code      kitty -e nvim
+set $tg        Telegram
+set $file      kitty -e yazi
+set $keepassxc keepassxc
+
+set $laptop eDP-1
+
+# ------------------------------------------------------------
+# CURSOR
+# ------------------------------------------------------------
+
+seat seat0 xcursor_theme Bibata-Modern-Classic 24
+seat seat0 hide_cursor when-typing enable
+seat seat0 hide_cursor 3000
+
+# ------------------------------------------------------------
+# OUTPUTS / WALLPAPER
+# ------------------------------------------------------------
+
+output * {
+    background /home/kuma/.config/sway/piqsels.com-id-scwya.jpg fill #050505
+}
+
+# Examples:
+# output DP-5 mode 3440x1440@179.981Hz position 1080 0 scale 1
+# output DP-3 mode 1920x1080@60Hz transform 90 position 0 0 scale 1
+# output eDP-1 position 4520 0 scale 1
+
+# ------------------------------------------------------------
+# LAPTOP LID
+# ------------------------------------------------------------
+
+bindswitch --reload lid:on  output $laptop disable
+bindswitch --reload lid:off output $laptop enable
+
+# ------------------------------------------------------------
+# INPUT / KEYBOARD
+# ------------------------------------------------------------
+
+input type:keyboard {
+    xkb_layout us,ru
+    xkb_options grp:win_space_toggle
+
+    repeat_delay 250
+    repeat_rate 35
+}
+
+# ------------------------------------------------------------
+# TOUCHPAD
+# ------------------------------------------------------------
+
+input type:touchpad {
+    tap enabled
+    dwt enabled
+    natural_scroll enabled
+
+    click_method clickfinger
+    scroll_method two_finger
+}
+
+# ------------------------------------------------------------
+# TOUCHPAD GESTURES
+# ------------------------------------------------------------
+
+bindgesture swipe:3:left  workspace next_on_output
+bindgesture swipe:3:right workspace prev_on_output
+
+# ------------------------------------------------------------
+# APPEARANCE
+# ------------------------------------------------------------
+
+font pango:Iosevka Term 11
+
+gaps inner 10
+gaps outer 18
+
+smart_gaps on
+smart_borders on
+hide_edge_borders smart
+
+default_border pixel 4
+default_floating_border pixel 4
+
+default_orientation horizontal
+
+focus_follows_mouse no
+focus_on_window_activation urgent
+mouse_warping output
+
+popup_during_fullscreen smart
+
+# ------------------------------------------------------------
+# COLORS — RAW UNIX / WHITE ACCENT
+# ------------------------------------------------------------
+
+set $black #050505
+set $bg    #080808
+
+set $line  #292929
+set $line2 #3D3D3D
+
+set $fg    #BDBDBD
+set $muted #5A5A5A
+set $soft  #8A8A8A
+set $focus #FFFFFF
+
+# class                 border  background  text    indicator  child_border
+client.focused           $focus  $bg         $fg     $focus     $focus
+client.focused_inactive  $line2  $bg         $soft   $line2     $line2
+client.unfocused         $line   $black      $muted  $line      $line
+client.urgent            $focus  $focus      $black  $focus     $focus
+client.placeholder       $line   $black      $muted  $line      $line
+
+client.background        $black
+
+# ------------------------------------------------------------
+# APPLICATIONS
+# ------------------------------------------------------------
+
+bindsym --to-code $mod+Return exec $term
+
+bindsym --to-code $mod+d exec $menu
+bindsym --to-code $mod+e exec $file
+bindsym --to-code $mod+c exec $code
+bindsym --to-code $mod+t exec $tg
+
+bindsym --to-code $mod+Shift+p exec $keepassxc
+
+# ------------------------------------------------------------
+# LOCK / POWER / SESSION
+# ------------------------------------------------------------
+
+bindsym --to-code $mod+x exec swaylock -f -c 050505
+
+bindsym --to-code $mod+Shift+x exec ~/.config/wofi/scripts/power_menu.sh
+
+bindsym --to-code $mod+Shift+q kill
+bindsym --to-code $mod+Shift+c reload
+
+bindsym --to-code $mod+Shift+e exec \
+    swaynag \
+    -t warning \
+    -m 'Exit Sway?' \
+    -B 'Exit' 'swaymsg exit'
+
+# ------------------------------------------------------------
+# FIREFOX PROFILES
+# ------------------------------------------------------------
+
+bindsym $mod+F1 exec firefox --new-instance -P soc
+bindsym $mod+F2 exec firefox --new-instance -P anon
+
+# ------------------------------------------------------------
+# FLOATING MODIFIER
+# ------------------------------------------------------------
+
+floating_modifier $mod normal
+
+# ------------------------------------------------------------
+# FOCUS
+# ------------------------------------------------------------
+
+bindsym --to-code $mod+$left  focus left
+bindsym --to-code $mod+$down  focus down
+bindsym --to-code $mod+$up    focus up
+bindsym --to-code $mod+$right focus right
+
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+bindsym --to-code $mod+a focus parent
+bindsym --to-code $mod+z focus child
+
+# ------------------------------------------------------------
+# FOCUS OUTPUT
+# ------------------------------------------------------------
+
+bindsym $mod+Ctrl+h focus output left
+bindsym $mod+Ctrl+l focus output right
+
+# ------------------------------------------------------------
+# MOVE WINDOWS
+# ------------------------------------------------------------
+
+bindsym --to-code $mod+Shift+$left  move left
+bindsym --to-code $mod+Shift+$down  move down
+bindsym --to-code $mod+Shift+$up    move up
+bindsym --to-code $mod+Shift+$right move right
+
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# ------------------------------------------------------------
+# MOVE BETWEEN OUTPUTS
+# ------------------------------------------------------------
+
+bindsym $mod+Ctrl+Shift+h move container to output left
+bindsym $mod+Ctrl+Shift+l move container to output right
+
+# ------------------------------------------------------------
+# WORKSPACES
+# ------------------------------------------------------------
+
+workspace_auto_back_and_forth no
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym $mod+Tab workspace back_and_forth
+
+bindsym $mod+bracketleft  workspace prev_on_output
+bindsym $mod+bracketright workspace next_on_output
+
+# ------------------------------------------------------------
+# LAYOUT
+# ------------------------------------------------------------
+
+bindsym --to-code $mod+b splith
+bindsym --to-code $mod+v splitv
+
+bindsym --to-code $mod+s layout stacking
+bindsym --to-code $mod+w layout tabbed
+
+bindsym --to-code $mod+Shift+v layout toggle split
+
+bindsym --to-code $mod+f fullscreen toggle
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space       focus mode_toggle
+
+# ------------------------------------------------------------
+# SCRATCHPAD
+# ------------------------------------------------------------
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# ------------------------------------------------------------
+# CLIPBOARD
+# ------------------------------------------------------------
+
+bindsym --to-code $mod+Shift+z exec \
+    sh -c 'cliphist list | wofi --dmenu --prompt "clipboard" | cliphist decode | wl-copy'
+
+# ------------------------------------------------------------
+# RESIZE MODE
+# ------------------------------------------------------------
+
+mode "resize" {
+
+    bindsym --to-code $left \
+        resize shrink width 10px
+
+    bindsym --to-code $down \
+        resize grow height 10px
+
+    bindsym --to-code $up \
+        resize shrink height 10px
+
+    bindsym --to-code $right \
+        resize grow width 10px
+
+    bindsym Left \
+        resize shrink width 10px
+
+    bindsym Down \
+        resize grow height 10px
+
+    bindsym Up \
+        resize shrink height 10px
+
+    bindsym Right \
+        resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym --to-code $mod+r mode "resize"
+
+# ------------------------------------------------------------
+# AUDIO
+# ------------------------------------------------------------
+
+bindsym --locked XF86AudioRaiseVolume \
+    exec ~/.config/sway/scripts/volume.sh up
+
+bindsym --locked XF86AudioLowerVolume \
+    exec ~/.config/sway/scripts/volume.sh down
+
+bindsym --locked XF86AudioMute \
+    exec ~/.config/sway/scripts/volume.sh mute
+
+bindsym --locked XF86AudioMicMute \
+    exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# ------------------------------------------------------------
+# BRIGHTNESS
+# ------------------------------------------------------------
+
+bindsym --locked XF86MonBrightnessDown \
+    exec brightnessctl set 5%-
+
+bindsym --locked XF86MonBrightnessUp \
+    exec brightnessctl set 5%+
+
+# ------------------------------------------------------------
+# SCREENSHOTS
+# ------------------------------------------------------------
+
+bindsym Print exec \
+    sh -c 'mkdir -p "$HOME/Pictures/Screenshots"; grim "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"'
+
+bindsym --to-code $mod+Shift+s exec \
+    sh -c 'mkdir -p "$HOME/Pictures/Screenshots"; grim -g "$(slurp)" "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"'
+
+# ------------------------------------------------------------
+# WINDOW RULES
+# ------------------------------------------------------------
+
+for_window [app_id="firefox"] border pixel 1
+
+# Не даём swayidle срабатывать, когда Firefox реально fullscreen.
+for_window [app_id="firefox"] inhibit_idle fullscreen
+for_window [class="Firefox"] inhibit_idle fullscreen
+
+# Picture in Picture
+for_window [app_id="firefox" title="(?i).*(picture-in-picture|картинка в картинке).*"] \
+    floating enable, \
+    sticky enable, \
+    resize set 960 540, \
+    move position center, \
+    border pixel 1
+
+for_window [class="Firefox" title="(?i).*(picture-in-picture|картинка в картинке).*"] \
+    floating enable, \
+    sticky enable, \
+    resize set 960 540, \
+    move position center, \
+    border pixel 1
+
+for_window [app_id="pavucontrol"] \
+    floating enable, \
+    resize set 760 520, \
+    move position center, \
+    border pixel 1
+
+for_window [app_id="nm-connection-editor"] \
+    floating enable, \
+    resize set 760 520, \
+    move position center, \
+    border pixel 1
+
+for_window [app_id="keepassxc"] \
+    border pixel 1
+
+# ------------------------------------------------------------
+# NO TRANSPARENCY
+# ------------------------------------------------------------
+
+for_window [all] opacity set 1
+
+# ------------------------------------------------------------
+# AUTOSTART
+# ------------------------------------------------------------
+
+exec swaync
+exec poweralertd
+exec waybar
+
+# Clipboard history
+exec wl-paste --type text \
+    --watch cliphist store
+
+exec wl-paste --type image \
+    --watch cliphist store
+
+# ------------------------------------------------------------
+# IDLE / LOCK
+# ------------------------------------------------------------
+
+exec swayidle -w \
+    timeout 900 'swaylock -f -c 050505' \
+    timeout 1200 'swaymsg "output * power off"' \
+        resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 050505'
+
+# ------------------------------------------------------------
+# SYSTEM DROP-INS
+# ------------------------------------------------------------
+
+include /etc/sway/config.d/*

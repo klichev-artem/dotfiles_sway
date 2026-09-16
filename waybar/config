@@ -1,0 +1,258 @@
+// ============================================================
+// WAYBAR — RAW UNIX / MONO / JAPANESE WORKSPACES
+// CAVA centered • Braille visualizer • icon-first status modules
+// ============================================================
+
+{
+    "layer": "top",
+    "position": "top",
+
+    "height": 32,
+    "spacing": 0,
+
+    "fixed-center": true,
+
+    // --------------------------------------------------------
+    // MODULE ORDER
+    // --------------------------------------------------------
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/language"
+    ],
+
+    "modules-center": [
+        "cava"
+    ],
+
+    "modules-right": [
+        "network",
+        "bluetooth",
+        "pulseaudio",
+        "battery",
+        "tray",
+        "clock",
+        "custom/power"
+    ],
+
+    // --------------------------------------------------------
+    // WORKSPACES — JAPANESE NUMERALS
+    // --------------------------------------------------------
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "disable-click": false,
+        "all-outputs": false,
+
+        "format": "{icon}",
+
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+            "10": "十",
+            "default": "・"
+        }
+    },
+
+    // --------------------------------------------------------
+    // LANGUAGE
+    // --------------------------------------------------------
+
+    "sway/language": {
+        "format": "󰌌  {shortDescription}",
+
+        "tooltip": true,
+        "tooltip-format": "{long}",
+
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+    },
+
+   // --------------------------------------------------------
+    // NETWORK
+    // --------------------------------------------------------
+
+    "network": {
+        "interval": 5,
+
+        "format-wifi": "󰤨  {essid}",
+        "format-ethernet": "󰈀",
+        "format-linked": "󰈀",
+        "format-disconnected": "󰤭",
+        "format-disabled": "󰤮",
+
+        "max-length": 24,
+
+        "tooltip": true,
+
+        "tooltip-format-wifi":
+            "{essid}\n{ifname}  {ipaddr}/{cidr}\nsignal {signalStrength}%  {frequency} GHz\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+
+        "tooltip-format-ethernet":
+            "{ifname}  {ipaddr}/{cidr}\nlink {linkSpeed}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+
+        "tooltip-format-linked":
+            "{ifname}\nlinked, no address",
+
+        "tooltip-format-disconnected":
+            "network disconnected",
+
+        "on-click":
+            "nm-connection-editor"
+    },
+
+    // --------------------------------------------------------
+    // BLUETOOTH
+    // --------------------------------------------------------
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-on": "󰂯",
+        "format-off": "󰂲",
+        "format-disabled": "󰂲",
+        "format-no-controller": "󰂲",
+
+        "format-connected":
+            "󰂯  {device_alias}",
+
+        "format-connected-battery":
+            "󰂯  {device_alias}  {device_battery_percentage}%",
+
+        "max-length": 28,
+
+        "tooltip": true,
+
+        "tooltip-format":
+            "{controller_alias}\n{num_connections} connected",
+
+        "tooltip-format-connected":
+            "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
+
+        "tooltip-format-enumerate-connected":
+            "{device_alias}",
+
+        "tooltip-format-enumerate-connected-battery":
+            "{device_alias}  {device_battery_percentage}%",
+
+        "on-click":
+            "kitty -e bluetoothctl"
+    },
+
+    // --------------------------------------------------------
+    // AUDIO
+    // --------------------------------------------------------
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "󰂯  {volume}%",
+        "format-muted": "󰝟",
+
+        "format-icons": {
+            "headphone": "",
+            "headset": "󰋎",
+            "hands-free": "󰋎",
+            "speaker": "󰓃",
+            "hdmi": "󰡁",
+            "phone": "",
+            "portable": "",
+            "car": "",
+
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+
+        "scroll-step": 2,
+        "max-volume": 100,
+
+        "tooltip": true,
+        "tooltip-format": "{desc}\nvolume {volume}%",
+
+        "on-click": "pavucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    },
+
+    // --------------------------------------------------------
+    // BATTERY
+    // --------------------------------------------------------
+
+    "battery": {
+        "interval": 30,
+
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰂄  {capacity}%",
+        "format-full": "󰁹  {capacity}%",
+
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+
+        "tooltip": true,
+        "tooltip-format": "{capacity}%\n{timeTo}"
+    },
+
+    // --------------------------------------------------------
+    // TRAY
+    // --------------------------------------------------------
+
+    "tray": {
+        "icon-size": 14,
+        "spacing": 8
+    },
+
+    // --------------------------------------------------------
+    // CLOCK
+    // --------------------------------------------------------
+
+    "clock": {
+        "interval": 1,
+
+        "format": " {:%H:%M:%S}",
+        "format-alt": "  {:%a %d %b}",
+
+        "tooltip": true,
+        "tooltip-format": "{:%A, %d %B %Y}\n<tt>{calendar}</tt>",
+
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "right",
+            "on-scroll": 1
+        }
+    },
+
+    // --------------------------------------------------------
+    // POWER
+    // --------------------------------------------------------
+
+    "custom/power": {
+        "format": "",
+
+        "tooltip": false,
+
+        "on-click":
+            "$HOME/.config/wofi/scripts/power_menu.sh"
+    }
+}

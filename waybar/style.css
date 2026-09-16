@@ -1,0 +1,437 @@
+/* =========================================================
+   WAYBAR — RAW UNIX / MONO / JAPANESE / BRAILLE
+   all bar text + font icons = 13px
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PALETTE
+   --------------------------------------------------------- */
+
+@define-color bg        #050505;
+@define-color bar       #080808;
+@define-color panel     #0c0c0c;
+@define-color surface   #121212;
+
+@define-color border    #292929;
+@define-color line      #353535;
+
+@define-color bright    #e2e2e2;
+@define-color fg        #bdbdbd;
+@define-color soft      #8a8a8a;
+@define-color muted     #5a5a5a;
+@define-color dim       #3d3d3d;
+
+
+/* ---------------------------------------------------------
+   GLOBAL
+   --------------------------------------------------------- */
+
+* {
+    min-height: 0;
+
+    border: none;
+    border-radius: 0;
+
+    box-shadow: none;
+    text-shadow: none;
+
+    font-family:
+        "IosevkaTerm Nerd Font",
+        "Iosevka Term",
+        "JetBrainsMono Nerd Font",
+        monospace;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    color: @fg;
+}
+
+
+/* ---------------------------------------------------------
+   BAR
+   --------------------------------------------------------- */
+
+window#waybar {
+    background-color: alpha(@bar, 0.97);
+
+    border-top: 1px solid @border;
+    border-bottom: 1px solid @border;
+}
+
+
+/* ---------------------------------------------------------
+   LEFT / RIGHT MODULE RHYTHM
+   --------------------------------------------------------- */
+
+#language,
+#network,
+#bluetooth,
+#pulseaudio,
+#battery,
+#tray,
+#clock,
+#custom-power {
+    margin: 0;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    color: @soft;
+    background-color: transparent;
+
+    border-left: 1px solid @border;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* ---------------------------------------------------------
+   WORKSPACES — JAPANESE NUMERALS
+   --------------------------------------------------------- */
+
+#workspaces {
+    margin: 0;
+    padding: 0;
+
+    background-color: transparent;
+}
+
+#workspaces button {
+    min-width: 30px;
+
+    margin: 0;
+    padding: 0 8px;
+
+    color: @muted;
+
+    background-color: transparent;
+    background-image: none;
+
+    border: none;
+    border-right: 1px solid @border;
+
+    font-family:
+        "Noto Sans CJK JP",
+        "Noto Sans JP",
+        "IosevkaTerm Nerd Font",
+        sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#workspaces button label {
+    color: @muted;
+
+    font-family:
+        "Noto Sans CJK JP",
+        "Noto Sans JP",
+        sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#workspaces button:hover {
+    color: @bright;
+    background-color: @surface;
+}
+
+#workspaces button:hover label {
+    color: @bright;
+}
+
+#workspaces button.focused {
+    color: @bg;
+    background-color: @fg;
+}
+
+#workspaces button.focused label {
+    color: @bg;
+    font-weight: 700;
+}
+
+#workspaces button.urgent {
+    color: @bg;
+    background-color: @bright;
+}
+
+#workspaces button.urgent label {
+    color: @bg;
+    font-weight: 700;
+}
+
+
+/* ---------------------------------------------------------
+   LANGUAGE
+   --------------------------------------------------------- */
+
+#language {
+    min-width: 52px;
+
+    color: @soft;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+}
+
+
+/* ---------------------------------------------------------
+   CAVA — TRUE CENTER / BRAILLE
+   --------------------------------------------------------- */
+
+#cava {
+    min-width: 190px;
+
+    margin: 0;
+    padding: 0 14px;
+
+    color: @fg;
+    background-color: transparent;
+
+    border: none;
+
+    font-family:
+        "Iosevka Term",
+        "IosevkaTerm Nerd Font",
+        monospace;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    letter-spacing: 0.08em;
+}
+
+#cava.silent {
+    color: @dim;
+}
+
+
+/* ---------------------------------------------------------
+   NETWORK
+   --------------------------------------------------------- */
+
+#network {
+    min-width: 28px;
+
+    color: @fg;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#network.disconnected,
+#network.disabled {
+    color: @dim;
+}
+
+
+/* ---------------------------------------------------------
+   BLUETOOTH
+   --------------------------------------------------------- */
+
+#bluetooth {
+    min-width: 28px;
+
+    color: @soft;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#bluetooth.connected {
+    color: @fg;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: @dim;
+}
+
+
+/* ---------------------------------------------------------
+   AUDIO
+   --------------------------------------------------------- */
+
+#pulseaudio {
+    min-width: 54px;
+
+    color: @fg;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#pulseaudio.muted {
+    color: @dim;
+}
+
+
+/* ---------------------------------------------------------
+   BATTERY
+   --------------------------------------------------------- */
+
+#battery {
+    min-width: 58px;
+
+    color: @fg;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#battery.charging,
+#battery.plugged,
+#battery.full {
+    color: @bright;
+}
+
+#battery.warning {
+    color: @soft;
+}
+
+#battery.critical {
+    color: @bright;
+    background-color: @surface;
+}
+
+
+/* ---------------------------------------------------------
+   TRAY
+   --------------------------------------------------------- */
+
+#tray {
+    min-width: 24px;
+
+    padding-left: 9px;
+    padding-right: 9px;
+
+    color: @soft;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: none;
+}
+
+
+/* ---------------------------------------------------------
+   CLOCK
+   --------------------------------------------------------- */
+
+#clock {
+    min-width: 82px;
+
+    color: @bright;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 0.03em;
+}
+
+
+/* ---------------------------------------------------------
+   POWER
+   --------------------------------------------------------- */
+
+#custom-power {
+    min-width: 30px;
+
+    color: @soft;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ---------------------------------------------------------
+   HOVER
+   --------------------------------------------------------- */
+
+#language:hover,
+#network:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#battery:hover,
+#clock:hover,
+#custom-power:hover {
+    color: @bright;
+    background-color: @surface;
+}
+
+
+/* ---------------------------------------------------------
+   TRAY MENU
+   --------------------------------------------------------- */
+
+#tray menu {
+    padding: 3px;
+
+    color: @fg;
+    background-color: @panel;
+
+    border: 1px solid @line;
+}
+
+#tray menuitem {
+    padding: 6px 10px;
+
+    color: @soft;
+    background-color: transparent;
+}
+
+#tray menuitem:hover {
+    color: @bg;
+    background-color: @fg;
+}
+
+
+/* ---------------------------------------------------------
+   TOOLTIP
+   --------------------------------------------------------- */
+
+tooltip {
+    color: @fg;
+    background-color: @panel;
+
+    border: 1px solid @line;
+}
+
+tooltip label {
+    padding: 7px 9px;
+
+    color: @fg;
+
+    font-family:
+        "IosevkaTerm Nerd Font",
+        "Iosevka Term",
+        monospace;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+/* ---------------------------------------------------------
+   CALENDAR
+   --------------------------------------------------------- */
+
+calendar {
+    color: @soft;
+    background-color: @panel;
+}
+
+calendar:selected {
+    color: @bg;
+    background-color: @fg;
+}
+

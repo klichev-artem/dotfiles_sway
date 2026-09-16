@@ -1,0 +1,114 @@
+/* =========================================================
+   WOFI — RAW UNIX / WHITE ACCENT
+   black • grey • square • terminal-first
+   ========================================================= */
+
+@define-color bg      #050505;
+@define-color panel   #0A0A0A;
+@define-color surface #121212;
+
+@define-color border  #303030;
+@define-color muted   #5A5A5A;
+@define-color soft    #8A8A8A;
+@define-color fg      #BDBDBD;
+@define-color accent  #FFFFFF;
+
+* {
+    font-family:
+        "IosevkaTerm Nerd Font",
+        "Iosevka Term",
+        "Terminus",
+        monospace;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#window {
+    color: @fg;
+    background-color: @bg;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+
+#outer-box {
+    margin: 7px;
+    padding: 0;
+
+    background-color: @bg;
+}
+
+#input {
+    margin: 0 0 7px 0;
+    padding: 7px 9px;
+
+    color: @fg;
+    background-color: @panel;
+
+    border: 1px solid @border;
+    border-radius: 0;
+
+    box-shadow: none;
+    outline: none;
+}
+
+#input:focus {
+    color: @accent;
+    border-color: @accent;
+}
+
+#scroll,
+#inner-box {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    background-color: transparent;
+}
+
+#entry {
+    margin: 0;
+    padding: 6px 9px;
+
+    color: @soft;
+    background-color: transparent;
+
+    border: none;
+    border-left: 1px solid transparent;
+    border-radius: 0;
+}
+
+#entry:selected {
+    color: @bg;
+    background-color: @accent;
+
+    border-left-color: @accent;
+
+    outline: none;
+}
+
+#text {
+    margin: 0 5px;
+    color: inherit;
+}
+
+#text:selected {
+    color: @bg;
+}
+
+#img {
+    margin-right: 6px;
+}
+
+#expander-box {
+    margin: 3px 0 0 0;
+    padding: 4px 6px;
+
+    color: @fg;
+    background-color: @panel;
+
+    border: 1px solid @border;
+    border-radius: 0;
+}
+

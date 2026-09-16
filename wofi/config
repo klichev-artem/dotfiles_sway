@@ -1,0 +1,16 @@
+width=620
+height=360
+location=center
+show=drun
+prompt=lambda >
+allow_images=false
+image_size=0
+layer=overlay
+term=foot
+insensitive=true
+no_actions=true
+hide_scroll=true
+gtk_dark=true
+normal_window=false
+columns=1
+sort_order=alphabetical
