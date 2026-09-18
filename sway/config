@@ -1,8 +1,3 @@
-# ============================================================
-# SWAY CONFIG
-# Based on the official sway(5), sway-input(5), sway-output(5)
-# ============================================================
-
 # ------------------------------------------------------------
 # SESSION / ENVIRONMENT
 # ------------------------------------------------------------
@@ -41,13 +36,13 @@ seat seat0 xcursor_theme Bibata-Modern-Classic 24
 seat seat0 hide_cursor when-typing enable
 seat seat0 hide_cursor 3000
 
-# ------------------------------------------------------------
 # OUTPUTS / WALLPAPER
 # ------------------------------------------------------------
 
-output * {
-    background /home/kuma/.config/sway/piqsels.com-id-scwya.jpg fill #050505
-}
+output * bg /home/kuma/.config/sway/piqsels.com-id-scwya.jpg fill
+# output * {
+#     background /home/kuma/.config/sway/piqsels.com-id-scwya.jpg fill
+# }
 
 # Examples:
 # output DP-5 mode 3440x1440@179.981Hz position 1080 0 scale 1
@@ -67,8 +62,6 @@ bindswitch --reload lid:off output $laptop enable
 
 input type:keyboard {
     xkb_layout us,ru
-    xkb_options grp:win_space_toggle
-
     repeat_delay 250
     repeat_rate 35
 }
@@ -277,7 +270,10 @@ bindsym --to-code $mod+Shift+v layout toggle split
 bindsym --to-code $mod+f fullscreen toggle
 
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space       focus mode_toggle
+bindsym $mod+Ctrl+space  focus mode_toggle
+
+# Keyboard layout: US <-> RU
+bindsym --to-code $mod+space input type:keyboard xkb_switch_layout next
 
 # ------------------------------------------------------------
 # SCRATCHPAD
