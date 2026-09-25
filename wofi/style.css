@@ -73,7 +73,7 @@
 
     color: @soft;
     background-color: transparent;
-
+    transition: 120ms ease-in-out;
     border: none;
     border-left: 1px solid transparent;
     border-radius: 0;
@@ -86,6 +86,11 @@
     border-left-color: @accent;
 
     outline: none;
+}
+
+
+#entry:selected #text {
+    color: #BDBDBD;
 }
 
 #text {

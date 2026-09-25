@@ -1,47 +1,45 @@
 :root {
-  --cc-bg: rgba(46, 46, 46, 0.7);
-  --noti-border-color: rgba(255, 255, 255, 0.15);
-  --noti-bg: 48, 48, 48;
-  --noti-bg-alpha: 0.8;
-  --noti-bg-darker: rgb(38, 38, 38);
-  --noti-bg-hover: rgb(56, 56, 56);
-  --noti-bg-focus: rgba(68, 68, 68, 0.6);
-  --noti-close-bg: rgb(78, 78, 78);
-  --noti-close-bg-hover: rgb(94, 94, 94);
-  --text-color: rgb(255, 255, 255);
-  --text-color-disabled: rgb(150, 150, 150);
-  --bg-selected: rgb(0, 128, 255);
-  --notification-icon-size: 64px;
-  --notification-app-icon-size: calc(var(--notification-icon-size) / 3);
-  --notification-group-icon-size: 32px;
+  --cc-bg: rgba(8, 9, 10, 0.96);
+  --noti-border-color: rgba(170, 188, 196, 0.22);
+  --noti-bg: 14, 16, 17;
+  --noti-bg-alpha: 0.97;
+  --noti-bg-darker: rgb(8, 9, 10);
+  --noti-bg-hover: rgb(21, 24, 25);
+  --noti-bg-focus: rgba(42, 46, 48, 0.78);
+  --noti-close-bg: rgb(42, 46, 48);
+  --noti-close-bg-hover: rgb(85, 93, 97);
+  --text-color: rgb(199, 206, 209);
+  --text-color-disabled: rgb(137, 147, 152);
+  --bg-selected: rgb(170, 188, 196);
+  --notification-icon-size: 48px;
+  --notification-app-icon-size: 18px;
+  --notification-group-icon-size: 28px;
   --border: 1px solid var(--noti-border-color);
-  --border-radius: 12px;
-  --notification-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3),
-    0 1px 3px 1px rgba(0, 0, 0, 0.7), 0 2px 6px 2px rgba(0, 0, 0, 0.3);
-  --font-size-body: 15px;
-  --font-size-summary: 16px;
-  /* Deprecated variables (because of their typos). Keeeping them around for backwards compatibility. */
-  --hover-tranistion: background 0.15s ease-in-out;
-  --group-collapse-tranistion: opacity 400ms ease-in-out;
+  --border-radius: 6px;
+  --notification-shadow: none;
+  --font-size-body: 13px;
+  --font-size-summary: 14px;
+  --hover-tranistion: background 180ms ease-in-out;
+  --group-collapse-tranistion: opacity 180ms ease-in-out;
   --hover-transition: var(--hover-tranistion);
   --group-collapse-transition: var(--group-collapse-tranistion);
 }
 
 /* Fallback for older CSS themes */
 /* Fallback for older CSS themes */
-@define-color cc-bg rgba(46, 46, 46, 0.7);
-@define-color noti-border-color rgba(255, 255, 255, 0.15);
-@define-color noti-bg rgba(48, 48, 48, 0.8);
-@define-color noti-bg-opaque rgb(48, 48, 48);
-@define-color noti-bg-darker rgb(38, 38, 38);
-@define-color noti-bg-hover rgb(56, 56, 56);
-@define-color noti-bg-hover-opaque rgb(56, 56, 56);
-@define-color noti-bg-focus rgba(68, 68, 68, 0.6);
-@define-color noti-close-bg rgba(255, 255, 255, 0.1);
-@define-color noti-close-bg-hover rgba(255, 255, 255, 0.15);
-@define-color text-color rgb(255, 255, 255);
-@define-color text-color-disabled rgb(150, 150, 150);
-@define-color bg-selected rgb(0, 128, 255);
+@define-color cc-bg rgba(8, 9, 10, 0.96);
+@define-color noti-border-color rgba(170, 188, 196, 0.22);
+@define-color noti-bg rgba(14, 16, 17, 0.97);
+@define-color noti-bg-opaque rgb(14, 16, 17);
+@define-color noti-bg-darker rgb(8, 9, 10);
+@define-color noti-bg-hover rgb(21, 24, 25);
+@define-color noti-bg-hover-opaque rgb(21, 24, 25);
+@define-color noti-bg-focus rgba(42, 46, 48, 0.78);
+@define-color noti-close-bg rgb(42, 46, 48);
+@define-color noti-close-bg-hover rgb(85, 93, 97);
+@define-color text-color rgb(199, 206, 209);
+@define-color text-color-disabled rgb(137, 147, 152);
+@define-color bg-selected rgb(170, 188, 196);
 notificationwindow, blankwindow {
   background: transparent;
 }
@@ -559,3 +557,419 @@ notificationwindow, blankwindow {
   margin-left: 8px;
   border-radius: var(--border-radius);
 }
+
+
+/* Sway palette accents */
+.notification-row .notification-background .notification.critical {
+  border-color: #B9B0A5;
+}
+.widget-dnd switch:checked,
+.widget-buttons-grid flowboxchild > button.toggle:checked {
+  background: #AABCC4;
+  color: #08090A;
+}
+
+/* =========================================================
+   QUIET MONO — SWAYFX MATCH
+   Layout: Title / DND / MPRIS / Volume / Backlight / Notices
+   ========================================================= */
+
+.widget {
+  margin: 0;
+  padding: 10px 14px;
+  background: transparent;
+  border-radius: 0;
+}
+
+/* Header */
+.widget-title {
+  margin: 0;
+  padding: 12px 14px 8px 14px;
+}
+.widget-title > label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #E4E8EA;
+}
+.widget-title > button {
+  margin: 0;
+  padding: 3px 8px;
+  min-height: 0;
+  background: transparent;
+  color: #899398;
+  border: 1px solid #2A2E30;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: background 180ms ease-in-out;
+}
+.widget-title > button:hover {
+  background: #151819;
+  color: #E4E8EA;
+  border-color: #555D61;
+}
+
+/* DND */
+.widget-dnd {
+  margin: 0;
+  padding: 8px 14px 12px 14px;
+  border-bottom: 1px solid #2A2E30;
+}
+.widget-dnd label {
+  margin-right: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #C7CED1;
+}
+.widget-dnd switch {
+  margin-left: 8px;
+  min-width: 34px;
+  min-height: 18px;
+  background: #151819;
+  border: 1px solid #2A2E30;
+  border-radius: 10px;
+  box-shadow: none;
+  transition: background 180ms ease-in-out;
+}
+.widget-dnd switch:checked {
+  background: #AABCC4;
+  border-color: #AABCC4;
+}
+.widget-dnd switch slider {
+  min-width: 14px;
+  min-height: 14px;
+  background: #899398;
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+}
+.widget-dnd switch:checked slider {
+  background: #08090A;
+}
+
+/* MPRIS */
+.widget-mpris {
+  margin: 0;
+  padding: 14px;
+  border-bottom: 1px solid #2A2E30;
+}
+.widget-mpris .widget-mpris-player {
+  margin: 0;
+  background: #0E1011;
+  border: 1px solid #2A2E30;
+  border-radius: 6px;
+  box-shadow: none;
+}
+.widget-mpris .widget-mpris-player .mpris-background {
+  filter: blur(8px);
+  opacity: 0.20;
+}
+.widget-mpris .widget-mpris-player .mpris-overlay {
+  padding: 12px;
+  background: rgba(8, 9, 10, 0.78);
+  border-radius: 6px;
+}
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-album-art {
+  -gtk-icon-size: 72px;
+  border-radius: 6px;
+  box-shadow: none;
+}
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #E4E8EA;
+}
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle {
+  font-size: 12px;
+  color: #899398;
+}
+.widget-mpris button {
+  background: transparent;
+  color: #C7CED1;
+  border: none;
+  border-radius: 6px;
+  box-shadow: none;
+}
+.widget-mpris button:hover {
+  background: #151819;
+  color: #E4E8EA;
+}
+
+/* Volume + backlight */
+.widget-volume,
+.widget-backlight {
+  margin: 0;
+  padding: 8px 14px;
+  background: transparent;
+}
+.widget-volume {
+  padding-top: 14px;
+}
+.widget-backlight {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #2A2E30;
+}
+.widget-volume label,
+.widget-backlight label {
+  min-width: 48px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #899398;
+}
+.widget-volume scale,
+.widget-backlight scale {
+  min-height: 16px;
+}
+.widget-volume trough,
+.widget-backlight trough {
+  min-height: 3px;
+  background: #2A2E30;
+  border: none;
+  border-radius: 3px;
+}
+.widget-volume highlight,
+.widget-backlight highlight {
+  min-height: 3px;
+  background: #AABCC4;
+  border-radius: 3px;
+}
+.widget-volume slider,
+.widget-backlight slider {
+  min-width: 10px;
+  min-height: 10px;
+  margin: -4px;
+  background: #C7CED1;
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+/* Notification list */
+.control-center .control-center-list {
+  background: transparent;
+  padding-top: 6px;
+}
+.notification-row .notification-background {
+  padding: 4px 12px;
+}
+.notification-row .notification-background .notification {
+  background: rgba(14, 16, 17, 0.97);
+  border: 1px solid #2A2E30;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: background 180ms ease-in-out;
+}
+.notification-row .notification-background .notification:hover {
+  background: #151819;
+  border-color: #555D61;
+}
+.notification-row .notification-background .notification.critical {
+  border-color: #B9B0A5;
+}
+.notification .summary {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E4E8EA;
+}
+.notification .body {
+  font-size: 12px;
+  color: #899398;
+}
+.notification .time {
+  font-size: 11px;
+  color: #555D61;
+}
+.close-button {
+  min-width: 20px;
+  min-height: 20px;
+  margin: 6px;
+  padding: 0;
+  background: #151819;
+  color: #899398;
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+}
+.close-button:hover {
+  background: #2A2E30;
+  color: #E4E8EA;
+}
+
+/* =========================================================
+   VISIBLE BORDERS
+   ========================================================= */
+
+/* Outer Control Center */
+.control-center {
+    border: 1px solid rgba(228, 232, 234, 0.55);
+    border-radius: 6px;
+}
+
+/* Media player */
+.widget-mpris .widget-mpris-player {
+    border: 1px solid rgba(228, 232, 234, 0.40);
+}
+
+/* Notifications */
+.notification-row .notification-background .notification {
+    border: 1px solid rgba(228, 232, 234, 0.35);
+}
+
+/* CLEAR button */
+.widget-title > button {
+    border: 1px solid rgba(228, 232, 234, 0.30);
+}
+
+/* Separators */
+.widget-dnd,
+.widget-mpris,
+.widget-backlight {
+    border-color: rgba(228, 232, 234, 0.25);
+}
+
+/* =========================================================
+   POLISHED NOTIFICATIONS — spacious / image-left / hierarchy
+   ========================================================= */
+
+/* More breathing room between notification cards */
+.notification-row .notification-background {
+    padding: 7px 14px;
+}
+
+.notification-row .notification-background .notification {
+    border-radius: 8px;
+}
+
+/* Main clickable notification area */
+.notification-row .notification-background .notification
+.notification-default-action {
+    padding: 8px;
+    border-radius: 8px;
+}
+
+/* Content spacing: image remains on the left in SwayNC's native layout */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content {
+    padding: 4px;
+}
+
+/* Primary image / application artwork on the left */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .image {
+    -gtk-icon-size: 58px;
+    min-width: 58px;
+    min-height: 58px;
+    margin: 4px 12px 4px 2px;
+    border-radius: 8px;
+}
+
+/* Small application icon, when SwayNC displays one */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .app-icon {
+    -gtk-icon-size: 20px;
+    margin: 4px 10px 4px 2px;
+}
+
+/* Give the text column some breathing room */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .text-box {
+    padding: 2px 4px;
+}
+
+/* Strong title hierarchy */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .text-box .summary {
+    font-size: 15px;
+    font-weight: 700;
+    color: #E4E8EA;
+}
+
+/* Secondary timestamp */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .text-box .time {
+    font-size: 10px;
+    font-weight: 500;
+    color: #555D61;
+    margin-right: 26px;
+}
+
+/* Body is deliberately smaller and softer than the title */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .text-box .body {
+    font-size: 12px;
+    font-weight: 400;
+    color: #899398;
+}
+
+/* A little more room for action buttons */
+.notification-row .notification-background .notification
+.notification-alt-actions {
+    padding: 6px 10px 8px 10px;
+}
+
+.notification-row .notification-background .notification
+.notification-action {
+    margin: 3px;
+}
+
+/* Close button: unobtrusive, but easier to hit */
+.close-button {
+    min-width: 22px;
+    min-height: 22px;
+    margin: 8px;
+}
+
+/* Control-center notification list breathing room */
+.control-center .control-center-list {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+/* =========================================================
+   SHARP NOTIFICATIONS — square geometry
+   ========================================================= */
+
+/* Notification card */
+.notification-row .notification-background .notification,
+.notification-row .notification-background .notification
+.notification-default-action,
+.notification-row .notification-background .notification
+.notification-default-action .notification-content {
+    border-radius: 0;
+}
+
+/* Main image stays on the left; square crop */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .image {
+    -gtk-icon-size: 58px;
+    min-width: 58px;
+    min-height: 58px;
+    margin: 4px 12px 4px 2px;
+    border-radius: 0;
+}
+
+/* Small app icon */
+.notification-row .notification-background .notification
+.notification-default-action .notification-content .app-icon {
+    border-radius: 0;
+}
+
+/* Alternative action area/buttons */
+.notification-row .notification-background .notification
+.notification-alt-actions,
+.notification-row .notification-background .notification
+.notification-action > button {
+    border-radius: 0;
+}
+
+/* Close button */
+.close-button {
+    border-radius: 0;
+}
+
+/* Control center itself */
+.control-center {
+    border-radius: 0;
+}
+
+

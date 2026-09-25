@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+set -u
+
+MUSIC_DIR="$HOME/Music"
+
+find_cover() {
+    local file="$1"
+    local dir="$MUSIC_DIR/$(dirname "$file")"
+    local cover
+
+    for cover in \
+        "$dir/cover.jpg" \
+        "$dir/cover.png" \
+        "$dir/folder.jpg" \
+        "$dir/folder.png" \
+        "$dir/front.jpg" \
+        "$dir/front.png"
+    do
+        if [[ -f "$cover" ]]; then
+            printf '%s\n' "$cover"
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+notify_track() {
+    local metadata
+    local artist
+    local title
+    local album
+    local file
+    local cover
+
+    metadata="$(mpc current \
+        -f '%artist%\t%title%\t%album%\t%file%')"
+
+    [[ -z "$metadata" ]] && return
+
+    IFS=$'\t' read -r artist title album file <<< "$metadata"
+
+    # Если title отсутствует — используем имя файла.
+    if [[ -z "$title" ]]; then
+        title="$(basename "$file")"
+        title="${title%.*}"
+    fi
+
+    [[ -z "$artist" ]] && artist="Unknown Artist"
+
+    cover="$(find_cover "$file" 2>/dev/null || true)"
+
+    if [[ -z "$cover" ]]; then
+        cover="audio-x-generic"
+    fi
+
+    notify-send \
+        -a "MPD" \
+        -i "$cover" \
+        -t 5000 \
+        -h string:x-canonical-private-synchronous:mpd \
+        "$title" \
+        "$artist${album:+
+$album}"
+}
+
+# Ждём события от MPD.
+while true; do
+    event="$(mpc idle player)"
+
+    [[ "$event" == "player" ]] || continue
+
+    # Уведомляем только если сейчас реально играет музыка.
+    if mpc status | grep -q '\[playing\]'; then
+        notify_track
+    fi
+done

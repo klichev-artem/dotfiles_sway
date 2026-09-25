@@ -25,6 +25,7 @@ set $code      kitty -e nvim
 set $tg        Telegram
 set $file      kitty -e yazi
 set $keepassxc keepassxc
+set $lock swaylock -f
 
 set $laptop eDP-1
 
@@ -92,15 +93,15 @@ bindgesture swipe:3:right workspace prev_on_output
 
 font pango:Iosevka Term 11
 
-gaps inner 10
-gaps outer 18
-
+# gaps inner 8
+# gaps outer 12
+#
 smart_gaps on
 smart_borders on
 hide_edge_borders smart
 
-default_border pixel 4
-default_floating_border pixel 4
+default_border pixel 2
+default_floating_border pixel 2
 
 default_orientation horizontal
 
@@ -111,29 +112,73 @@ mouse_warping output
 popup_during_fullscreen smart
 
 # ------------------------------------------------------------
-# COLORS — RAW UNIX / WHITE ACCENT
+# SWAYFX
 # ------------------------------------------------------------
 
-set $black #050505
-set $bg    #080808
+gaps inner 10
+gaps outer 20
 
-set $line  #292929
-set $line2 #3D3D3D
+shadows enable
+corner_radius 1
 
-set $fg    #BDBDBD
-set $muted #5A5A5A
-set $soft  #8A8A8A
-set $focus #FFFFFF
+# Длительность поддерживаемых SwayFX-анимаций
+animation_duration_ms 120
 
-# class                 border  background  text    indicator  child_border
-client.focused           $focus  $bg         $fg     $focus     $focus
-client.focused_inactive  $line2  $bg         $soft   $line2     $line2
-client.unfocused         $line   $black      $muted  $line      $line
-client.urgent            $focus  $focus      $black  $focus     $focus
-client.placeholder       $line   $black      $muted  $line      $line
+# SwayNC Control Center
+layer_effects "swaync-control-center" {
+    blur disable
+    shadows enable
+    corner_radius 6
+}
+
+# SwayNC popup notifications
+layer_effects "swaync-notification-window" {
+    blur disable
+    shadows disable
+    corner_radius 1
+}
+
+# SwayNC visual effects
+layer_effects "gtk-layer-shell" {
+    blur disable
+    shadows enable
+    corner_radius 6
+}
+
+# ------------------------------------------------------------
+# COLORS — DARK MONO
+# ------------------------------------------------------------
+
+# Основные тёмные цвета
+set $black   #08090A
+set $bg      #0E1011
+set $surface #151819
+
+# Серые
+set $border  #2A2E30
+set $muted   #555D61
+set $soft    #899398
+set $fg      #C7CED1
+set $bright  #E4E8EA
+
+# Спокойные пастельные акценты
+set $ice     #AABCC4
+set $sage    #AEB8AA
+set $greige  #B9B0A5
+
+
+# ------------------------------------------------------------
+# WINDOW COLORS
+# ------------------------------------------------------------
+
+#                       border   background  text     indicator  child_border
+client.focused           $ice     $bg         $bright  $ice       $ice
+client.focused_inactive  $border  $black      $soft    $border    $border
+client.unfocused         $border  $black      $muted   $border    $border
+client.urgent            $greige  $bg         $bright  $greige    $greige
+client.placeholder       $border  $black      $muted   $border    $border
 
 client.background        $black
-
 # ------------------------------------------------------------
 # APPLICATIONS
 # ------------------------------------------------------------
@@ -151,7 +196,7 @@ bindsym --to-code $mod+Shift+p exec $keepassxc
 # LOCK / POWER / SESSION
 # ------------------------------------------------------------
 
-bindsym --to-code $mod+x exec swaylock -f -c 050505
+bindsym --to-code $mod+x exec $lock  
 
 bindsym --to-code $mod+Shift+x exec ~/.config/wofi/scripts/power_menu.sh
 
@@ -168,9 +213,9 @@ bindsym --to-code $mod+Shift+e exec \
 # FIREFOX PROFILES
 # ------------------------------------------------------------
 
-bindsym $mod+F1 exec firefox --new-instance -P soc
-bindsym $mod+F2 exec firefox --new-instance -P anon
-
+bindsym --to-code $mod+F1 exec firefox --new-instance -P soc
+bindsym --to-code $mod+F2 exec firefox --new-instance -P anon
+bindsym --to-code $mod+n exec swaync-client -t
 # ------------------------------------------------------------
 # FLOATING MODIFIER
 # ------------------------------------------------------------
@@ -365,7 +410,6 @@ bindsym --to-code $mod+Shift+s exec \
 # WINDOW RULES
 # ------------------------------------------------------------
 
-for_window [app_id="firefox"] border pixel 1
 
 # Не даём swayidle срабатывать, когда Firefox реально fullscreen.
 for_window [app_id="firefox"] inhibit_idle fullscreen

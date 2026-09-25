@@ -37,8 +37,7 @@
     text-shadow: none;
 
     font-family:
-        "IosevkaTerm Nerd Font",
-        "Iosevka Term",
+        "Iosevka Fixed Light",
         "JetBrainsMono Nerd Font",
         monospace;
 
@@ -71,7 +70,6 @@ window#waybar {
 #pulseaudio,
 #battery,
 #tray,
-#clock,
 #custom-power {
     margin: 0;
 
@@ -433,5 +431,77 @@ calendar {
 calendar:selected {
     color: @bg;
     background-color: @fg;
+}
+
+
+#custom-notification {
+    color: #c7ced1;
+    background: transparent;
+
+    padding: 0 10px;
+    margin: 0 2px;
+
+    font-size: 15px;
+
+    border: none;
+    border-radius: 0;
+}
+
+#custom-notification:hover {
+    color: #e4e8ea;
+    background: #151819;
+}
+
+
+/* =========================================================
+   MINIMAL OVERRIDE — text/numbers first, no hover chrome
+   ========================================================= */
+
+#language,
+#network,
+#bluetooth,
+#pulseaudio,
+#battery,
+#tray,
+#clock,
+#custom-notification,
+#custom-power {
+    padding-left: 8px;
+    padding-right: 8px;
+    background: transparent;
+}
+
+#language:hover,
+#network:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#battery:hover,
+#clock:hover,
+#custom-notification:hover,
+#custom-power:hover {
+    color: @bright;
+    background: transparent;
+}
+
+#custom-notification {
+    min-width: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+    font-size: 13px;
+}
+
+tooltip {
+    opacity: 0;
+}
+
+
+/* Notification module — same separator/rhythm as the other modules */
+#custom-notification {
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-left: 1px solid @border;
+    background: transparent;
 }
 
